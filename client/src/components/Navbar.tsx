@@ -41,6 +41,15 @@ const Navbar = () => {
               <span className="relative z-10">💎 Products</span>
               <span className="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
             </Link>
+            {user && (
+              <Link 
+                to="/add-product" 
+                className="relative px-4 py-2 text-gray-300 font-semibold hover:text-green-400 transition-colors duration-300 group"
+              >
+                <span className="relative z-10">➕ Sell</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-green-900/50 to-emerald-900/50 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              </Link>
+            )}
             <Link 
               to="/about" 
               className="relative px-4 py-2 text-gray-300 font-semibold hover:text-purple-400 transition-colors duration-300 group"

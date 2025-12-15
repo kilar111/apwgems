@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'
 import Product from '../models/Product'
 import { authMiddleware } from '../middleware/auth'
+import { upload } from '../middleware/upload'
 
 const router = Router()
 
@@ -45,21 +46,27 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 })
 
-// Create product (protected)
-router.post('/', authMiddleware, async (req: Request, res: Response) => {
+// Create product (protected) - with image upload
+router.post('/', authMiddleware, upload.single('image'), async (req: Request, res: Response) => {
   try {
-    const { name, description, price, category, carat, color, origin, image, stock } = req.body
+    const { name, description, price, category, carat, color, origin, stock } = req.body
+
+    // Get image URL from uploaded file or use provided URL
+    let imageUrl = req.body.image || ''
+    if (req.file) {
+      imageUrl = `/uploads/${req.file.filename}`
+    }
 
     const product = new Product({
       name,
       description,
-      price,
+      price: Number(price),
       category,
-      carat,
+      carat: Number(carat),
       color,
       origin,
-      image,
-      stock,
+      image: imageUrl,
+      stock: Number(stock) || 1,
       seller: req.user.userId,
     })
 
@@ -70,8 +77,8 @@ router.post('/', authMiddleware, async (req: Request, res: Response) => {
   }
 })
 
-// Update product (protected)
-router.put('/:id', authMiddleware, async (req: Request, res: Response) => {
+// Update product (protected) - with image upload
+router.put('/:id', authMiddleware, upload.single('image'), async (req: Request, res: Response) => {
   try {
     const product = await Product.findById(req.params.id)
     
@@ -83,9 +90,22 @@ router.put('/:id', authMiddleware, async (req: Request, res: Response) => {
       return res.status(403).json({ message: 'Not authorized' })
     }
 
+    // Prepare update data
+    const updateData: any = { ...req.body }
+    
+    // Handle image update
+    if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`
+    }
+
+    // Convert numeric fields
+    if (updateData.price) updateData.price = Number(updateData.price)
+    if (updateData.carat) updateData.carat = Number(updateData.carat)
+    if (updateData.stock) updateData.stock = Number(updateData.stock)
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true }
     )
 
