@@ -1,0 +1,118 @@
+import { Router, Request, Response } from 'express'
+import Product from '../models/Product'
+import { authMiddleware } from '../middleware/auth'
+
+const router = Router()
+
+// Get all products
+router.get('/', async (req: Request, res: Response) => {
+  try {
+    const { category, minPrice, maxPrice, sort } = req.query
+
+    let query: any = {}
+
+    if (category && category !== 'all') {
+      query.category = category
+    }
+
+    if (minPrice || maxPrice) {
+      query.price = {}
+      if (minPrice) query.price.$gte = Number(minPrice)
+      if (maxPrice) query.price.$lte = Number(maxPrice)
+    }
+
+    let sortOption: any = { createdAt: -1 }
+    if (sort === 'price-asc') sortOption = { price: 1 }
+    if (sort === 'price-desc') sortOption = { price: -1 }
+
+    const products = await Product.find(query).sort(sortOption).populate('seller', 'name email')
+    res.json(products)
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
+// Get single product
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('seller', 'name email')
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+    res.json(product)
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
+// Create product (protected)
+router.post('/', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { name, description, price, category, carat, color, origin, image, stock } = req.body
+
+    const product = new Product({
+      name,
+      description,
+      price,
+      category,
+      carat,
+      color,
+      origin,
+      image,
+      stock,
+      seller: req.user.userId,
+    })
+
+    await product.save()
+    res.status(201).json(product)
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
+// Update product (protected)
+router.put('/:id', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const product = await Product.findById(req.params.id)
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+
+    if (product.seller.toString() !== req.user.userId) {
+      return res.status(403).json({ message: 'Not authorized' })
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    )
+
+    res.json(updatedProduct)
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
+// Delete product (protected)
+router.delete('/:id', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const product = await Product.findById(req.params.id)
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+
+    if (product.seller.toString() !== req.user.userId) {
+      return res.status(403).json({ message: 'Not authorized' })
+    }
+
+    await Product.findByIdAndDelete(req.params.id)
+    res.json({ message: 'Product deleted' })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
+export default router
