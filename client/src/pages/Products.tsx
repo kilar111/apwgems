@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import axios from 'axios'
 import { Sparkles, Filter } from 'lucide-react'
@@ -13,10 +14,22 @@ interface Product {
 }
 
 const Products = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
-  const [category, setCategory] = useState('all')
+  const [category, setCategory] = useState(searchParams.get('category') || 'all')
   const [sortBy, setSortBy] = useState('newest')
+  
+  // Update URL when category changes
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory)
+    if (newCategory === 'all') {
+      searchParams.delete('category')
+    } else {
+      searchParams.set('category', newCategory)
+    }
+    setSearchParams(searchParams)
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -150,7 +163,7 @@ const Products = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
         {/* Light Luxury Filters */}
         <div className="bg-white/90 backdrop-blur-xl rounded-3xl border border-purple-200/50 p-8 mb-12 animate-fade-in-up shadow-xl">
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex ithandleCategoryChangegap-3 mb-6">
             <Filter className="w-6 h-6 text-purple-600" />
             <h3 className="text-xl font-bold text-gray-900">Filter & Sort</h3>
           </div>
@@ -215,7 +228,7 @@ const Products = () => {
               <Sparkles className="w-16 h-16 text-purple-600 mx-auto mb-4" />
               <p className="text-gray-700 text-lg font-semibold">No gemstones found in this category</p>
               <button 
-                onClick={() => setCategory('all')}
+                onClick={() => handleCategoryChange('all')}
                 className="mt-4 text-purple-600 hover:text-purple-700 underline transition-colors font-medium"
               >
                 View all products
