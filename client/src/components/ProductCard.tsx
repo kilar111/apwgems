@@ -40,11 +40,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="group relative">
       {/* Glow effect on hover */}
-      <div className={`absolute -inset-1 bg-gradient-to-r ${gemColor} rounded-3xl blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-500`}></div>
+      <div className={`absolute -inset-1 bg-gradient-to-r ${gemColor} rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500`}></div>
       
-      <div className="relative bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl shadow-2xl overflow-hidden hover:shadow-purple-500/30 transition-all duration-500 border border-slate-800 group-hover:border-purple-500/50 group-hover:scale-[1.02]">
+      <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-purple-100 group-hover:border-purple-300 group-hover:scale-[1.02]">
         {/* Image Section */}
-        <Link to={`/products/${product._id}`} className="relative block overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+        <Link to={`/products/${product._id}`} className="relative block overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
           <div className="absolute top-4 left-4 z-10">
             <span className={`inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r ${gemColor} text-white text-xs font-bold rounded-full shadow-lg backdrop-blur-sm`}>
               {gemIcon} {product.category}
@@ -58,41 +58,41 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
           
           {/* Shimmer effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           
-          {/* Dark overlay on hover */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+          {/* Light overlay on hover */}
+          <div className={`absolute inset-0 bg-gradient-to-t from-gray-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
         </Link>
         
         {/* Content Section */}
-        <div className="p-6 relative">
+        <div className="p-6 relative bg-white">
           <Link to={`/products/${product._id}`}>
-            <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300 mb-3 line-clamp-2">
+            <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-3 line-clamp-2">
               {product.name}
             </h3>
           </Link>
           
           {/* Specs */}
-          <div className="flex items-center gap-4 mb-4 text-sm text-gray-400">
+          <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
             <span className="flex items-center gap-1">
               <span className="text-lg">💎</span>
-              <span className="font-semibold text-purple-300">{product.carat}</span> Carat
+              <span className="font-semibold text-purple-600">{product.carat}</span> Carat
             </span>
             <span className="flex items-center gap-1">
               <span className="text-lg">⭐</span>
-              <span className="font-semibold text-purple-300">4.8</span>
+              <span className="font-semibold text-purple-600">4.8</span>
             </span>
           </div>
 
           {/* Price and Action */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-between pt-4 border-t border-gray-200">
             <div>
               <div className="text-xs text-gray-500 mb-1">Price</div>
               <span className={`text-2xl font-extrabold bg-gradient-to-r ${gemColor} bg-clip-text text-transparent`}>
                 ${product.price.toLocaleString()}
               </span>
             </div>
-            <button className={`group/btn relative px-6 py-3 bg-gradient-to-r ${gemColor} text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110 overflow-hidden`}>
+            <button className={`group/btn relative px-6 py-3 bg-gradient-to-r ${gemColor} text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-400/50 transition-all duration-300 hover:scale-110 overflow-hidden`}>
               <span className="relative z-10 flex items-center gap-2">
                 <ShoppingCart className="h-5 w-5" />
                 <span className="hidden sm:inline">Add</span>
@@ -105,7 +105,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {/* Quick view badge */}
         <Link
           to={`/products/${product._id}`}
-          className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-lg"
+          className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-lg border border-purple-200"
         >
           <svg className="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
