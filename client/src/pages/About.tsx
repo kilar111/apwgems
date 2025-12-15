@@ -2,7 +2,7 @@ import { Gem, Award, Shield, Globe, Heart, Star } from 'lucide-react'
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden pt-20">
       {/* Dark Animated Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/50 to-slate-950"></div>

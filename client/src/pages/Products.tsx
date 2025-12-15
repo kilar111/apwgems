@@ -51,7 +51,7 @@ const Products = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen bg-black relative pt-20">
       {/* Dark Animated Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/50 to-slate-950"></div>
