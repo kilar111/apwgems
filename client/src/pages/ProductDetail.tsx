@@ -108,11 +108,29 @@ const ProductDetail = () => {
   }, [id])
 
   if (loading) {
-    return <div className="max-w-7xl mx-auto px-4 py-8">Loading...</div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 flex items-center justify-center pt-20">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="text-purple-600 text-lg font-semibold">Loading product...</div>
+        </div>
+      </div>
+    )
   }
 
   if (!product) {
-    return <div className="max-w-7xl mx-auto px-4 py-8">Product not found</div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 flex items-center justify-center pt-20">
+        <div className="text-center p-8 bg-white/80 backdrop-blur-xl rounded-3xl border border-purple-200/50 shadow-xl">
+          <div className="text-6xl mb-4">❌</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Product not found</h2>
+          <p className="text-gray-600 mb-6">The product you're looking for doesn't exist.</p>
+          <Link to="/products" className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all">
+            Back to Products
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   const gemIcons: { [key: string]: string } = {
@@ -127,7 +145,7 @@ const ProductDetail = () => {
   const gemIcon = gemIcons[product.category.toLowerCase()] || '💎'
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-12 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="mb-8 flex items-center gap-2 text-sm text-gray-600">
