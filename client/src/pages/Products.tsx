@@ -26,6 +26,58 @@ const Products = () => {
         setLoading(false)
       } catch (error) {
         console.error('Error fetching products:', error)
+        // Fallback to mock data if API fails
+        const mockProducts: Product[] = [
+          {
+            _id: '1',
+            name: 'Premium Blue Sapphire',
+            price: 5000,
+            image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400',
+            category: 'Sapphire',
+            carat: 3.5
+          },
+          {
+            _id: '2',
+            name: 'Natural Ruby Gemstone',
+            price: 7500,
+            image: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400',
+            category: 'Ruby',
+            carat: 2.8
+          },
+          {
+            _id: '3',
+            name: 'Emerald Crystal',
+            price: 6200,
+            image: 'https://images.unsplash.com/photo-1583937443566-6868f2e3abb7?w=400',
+            category: 'Emerald',
+            carat: 4.2
+          },
+          {
+            _id: '4',
+            name: 'Diamond Premium Cut',
+            price: 12000,
+            image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400',
+            category: 'Diamond',
+            carat: 1.5
+          },
+          {
+            _id: '5',
+            name: 'Golden Topaz',
+            price: 3500,
+            image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400',
+            category: 'Topaz',
+            carat: 5.0
+          },
+          {
+            _id: '6',
+            name: 'Purple Amethyst',
+            price: 2800,
+            image: 'https://images.unsplash.com/photo-1583937443566-6868f2e3abb7?w=400',
+            category: 'Amethyst',
+            carat: 3.8
+          }
+        ]
+        setProducts(mockProducts)
         setLoading(false)
       }
     }
