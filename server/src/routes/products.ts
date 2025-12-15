@@ -10,7 +10,7 @@ router.get('/', async (req: Request, res: Response) => {
   try {
     const { category, minPrice, maxPrice, sort } = req.query
 
-    let query: any = {}
+    let query: any = { status: 'approved' } // Only show approved products
 
     if (category && category !== 'all') {
       query.category = category

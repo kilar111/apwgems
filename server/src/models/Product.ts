@@ -10,6 +10,7 @@ export interface IProduct extends Document {
   origin: string
   image: string
   stock: number
+  status: 'pending' | 'approved' | 'rejected'
   seller: mongoose.Types.ObjectId
   createdAt: Date
 }
@@ -57,6 +58,11 @@ const productSchema = new Schema<IProduct>(
       required: true,
       min: 0,
       default: 1,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending',
     },
     seller: {
       type: Schema.Types.ObjectId,

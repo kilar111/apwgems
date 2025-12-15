@@ -71,6 +71,14 @@ const Navbar = () => {
 
             {user ? (
               <div className="flex items-center space-x-3">
+                {user.role === 'admin' && (
+                  <Link
+                    to="/admin"
+                    className="px-4 py-2 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-red-700 transition-all duration-300 shadow-lg"
+                  >
+                    🛡️ Admin
+                  </Link>
+                )}
                 <Link to="/profile" className="group p-2 hover:bg-purple-900/30 rounded-xl transition-all duration-300">
                   <User className="h-7 w-7 text-gray-300 group-hover:text-purple-400 transition-all duration-300 group-hover:scale-110" />
                 </Link>
