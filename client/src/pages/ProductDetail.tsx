@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { ShoppingCart, Heart } from 'lucide-react'
 import axios from 'axios'
 

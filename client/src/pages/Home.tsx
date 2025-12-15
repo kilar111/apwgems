@@ -1,25 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Gem, Shield, Truck, Award, Sparkles, Star } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 const Home = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   return (
     <div className="relative overflow-hidden bg-black">
@@ -501,7 +483,7 @@ const Home = () => {
               { name: 'Garnet', color: 'from-red-700 to-red-900' },
               { name: 'Peridot', color: 'from-lime-400 to-green-600' },
               { name: 'Tanzanite', color: 'from-indigo-500 to-purple-600' },
-            ].map((cat, index) => (
+            ].map((cat) => (
               <Link
                 key={cat.name}
                 to={`/products?category=${cat.name.toLowerCase()}`}
