@@ -28,6 +28,78 @@ const ProductDetail = () => {
         setLoading(false)
       } catch (error) {
         console.error('Error fetching product:', error)
+        // Fallback to mock data if API fails
+        const mockProducts: { [key: string]: Product } = {
+          '1': {
+            _id: '1',
+            name: 'Premium Blue Sapphire',
+            price: 5000,
+            image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600',
+            category: 'Sapphire',
+            carat: 3.5,
+            description: 'A stunning premium blue sapphire with exceptional clarity and brilliance. This natural gemstone features a deep royal blue color that captures light beautifully from every angle. Perfect for creating an heirloom piece.',
+            origin: 'Sri Lanka',
+            color: 'Deep Blue'
+          },
+          '2': {
+            _id: '2',
+            name: 'Natural Ruby Gemstone',
+            price: 7500,
+            image: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=600',
+            category: 'Ruby',
+            carat: 2.8,
+            description: 'Magnificent natural ruby with rich red coloration. This precious gemstone exhibits the classic "pigeon blood" red color highly prized by collectors. Excellent cut and polish enhance its natural beauty.',
+            origin: 'Myanmar',
+            color: 'Pigeon Blood Red'
+          },
+          '3': {
+            _id: '3',
+            name: 'Emerald Crystal',
+            price: 6200,
+            image: 'https://images.unsplash.com/photo-1583937443566-6868f2e3abb7?w=600',
+            category: 'Emerald',
+            carat: 4.2,
+            description: 'Breathtaking emerald crystal with vibrant green hue. This exceptional stone displays remarkable transparency and the coveted deep green color. A rare find for serious collectors.',
+            origin: 'Colombia',
+            color: 'Vivid Green'
+          },
+          '4': {
+            _id: '4',
+            name: 'Diamond Premium Cut',
+            price: 12000,
+            image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600',
+            category: 'Diamond',
+            carat: 1.5,
+            description: 'Flawless premium cut diamond with exceptional brilliance. This D-color diamond features ideal proportions and superior cut quality, maximizing its fire and sparkle. Certified by GIA.',
+            origin: 'South Africa',
+            color: 'Colorless (D)'
+          },
+          '5': {
+            _id: '5',
+            name: 'Golden Topaz',
+            price: 3500,
+            image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600',
+            category: 'Topaz',
+            carat: 5.0,
+            description: 'Beautiful golden topaz with warm, rich tones. This large gemstone displays excellent clarity and a mesmerizing golden-yellow color. Perfect for statement jewelry pieces.',
+            origin: 'Brazil',
+            color: 'Imperial Golden'
+          },
+          '6': {
+            _id: '6',
+            name: 'Purple Amethyst',
+            price: 2800,
+            image: 'https://images.unsplash.com/photo-1583937443566-6868f2e3abb7?w=600',
+            category: 'Amethyst',
+            carat: 3.8,
+            description: 'Gorgeous purple amethyst with deep, saturated color. This natural gemstone showcases the finest purple hue with excellent transparency. A beloved stone for its beauty and spiritual properties.',
+            origin: 'Uruguay',
+            color: 'Deep Purple'
+          }
+        }
+        
+        const mockProduct = mockProducts[id || '1'] || mockProducts['1']
+        setProduct(mockProduct)
         setLoading(false)
       }
     }
